@@ -16,11 +16,15 @@ def get_charset_perceived():
     # https://stackoverflow.com/questions/6805311/playing-around-with-devanagari-characters
     return regex.findall(r'\X', CHAR_SET)
 
+def font_getsize(font, ch):
+    l, t, r, b = font.getbbox(ch)
+    w = r - l
+    h = b - t
 
-def get_max_width(font):
+    return (w, h)
     widths = []
     for ch in get_charset_perceived():
-        w, h = font.getsize(ch)
+        w, h = font_getsize(font, ch)
         widths.append(w)
     return max(widths)
 
@@ -60,7 +64,7 @@ def generate_font_data(font, x_size, y_size):
         data += f"// @{array_offset} '{ch}' ({font_width} pixels wide)\r\n"
 
         # Calculate size and margins for centered text
-        w, h = font.getsize(ch)
+        w, h = font_getsize(font, ch)
         x_margin = (x_size - w) // 2
         y_margin = (y_size - h) // 2
         margin = (x_margin, y_margin)
@@ -120,7 +124,7 @@ sFONT {filename} = {{
         f.write(output)
 
     # Output preview of font
-    size = font.getsize(CHAR_SET)
+    size = font_getsize(font, CHAR_SET)
     im = Image.new("RGB", size)
     drawer = ImageDraw.Draw(im)
     drawer.text((0, 0), CHAR_SET, font=font)
