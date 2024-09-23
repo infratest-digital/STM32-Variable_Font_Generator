@@ -65,15 +65,13 @@ def generate_font_data(font, x_size, y_size):
 
         # Calculate size and margins for centered text
         w, h = font_getsize(font, ch)
-        x_margin = (x_size - w) // 2
-        y_margin = (y_size - h) // 2
-        margin = (x_margin, y_margin)
+        margin = (0, 0)
         im_size = (x_size, y_size)
 
         # create image and write the char
         im = Image.new("RGB", im_size)
         drawer = ImageDraw.Draw(im)
-        drawer.text(margin, ch, font=font)
+        drawer.text(margin, ch, font=font, spacing=0)
         del drawer
 
         # for each row, convert to hex representation
