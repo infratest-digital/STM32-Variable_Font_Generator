@@ -9,8 +9,8 @@ import regex
 # Greyscale threshold from 0 - 255
 THRESHOLD = 128
 # Font Character Set
-CHAR_SET = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
-
+#CHAR_SET = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
+CHAR_SET = "".join([chr(x) for x in range(32, 255+1)])
 
 def get_charset_perceived():
     # https://stackoverflow.com/questions/6805311/playing-around-with-devanagari-characters
